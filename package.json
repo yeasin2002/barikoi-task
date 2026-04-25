@@ -105,7 +105,7 @@
     "@storybook/addon-links": "latest",
     "@storybook/addon-onboarding": "^9.1.20",
     "@storybook/addon-vitest": "9.0.18",
-    "@storybook/nextjs-vite": "^9.1.20",
+    "@storybook/nextjs-vite": "^10.3.5",
     "@tailwindcss/postcss": "^4.2.2",
     "@testing-library/jest-dom": "latest",
     "@types/node": "^24.12.2",
