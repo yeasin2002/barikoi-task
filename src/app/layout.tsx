@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/components/shared/theme-provider'
+import StoreProvider from '@/lib/store-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import type React from 'react'
@@ -10,19 +11,20 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
-  params: Promise<{ locale: string }>
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <StoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </StoreProvider>
       </body>
     </html>
   )
