@@ -2,12 +2,9 @@ import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Code2, Database, Palette, Shield, Sparkles, TestTube, Zap } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
+
 
 export default async function HomePage() {
-  const t = await getTranslations('hero')
-  console.log('page: title', t('title'))
-
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 dark:from-slate-950 dark:via-blue-950/30 dark:to-indigo-950/50">
       {/* Navigation */}
@@ -18,9 +15,7 @@ export default async function HomePage() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-blue-600 to-indigo-600">
                 <Code2 className="h-4 w-4 text-white" />
               </div>
-              <span className="bg-linear-to-r from-slate-900 to-slate-700 bg-clip-text text-xl font-bold text-transparent dark:from-white dark:to-slate-300">
-                {t('title')}
-              </span>
+              <span className="bg-linear-to-r from-slate-900 to-slate-700 bg-clip-text text-xl font-bold text-transparent dark:from-white dark:to-slate-300"></span>
             </div>
             <nav className="hidden items-center space-x-6 md:flex">
               <a
