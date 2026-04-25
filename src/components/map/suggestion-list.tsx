@@ -68,7 +68,7 @@ export default function SuggestionList({
         return (
           <li
             aria-selected={isActive}
-            className={`flex cursor-pointer items-start gap-3 rounded-xl px-3 py-3 outline-none transition ${
+            className={`flex cursor-pointer items-start gap-3 rounded-xl px-3 py-3 transition outline-none ${
               isActive ? 'bg-blue-500/20 text-white' : 'text-slate-200 hover:bg-white/8'
             }`}
             key={`${result.uCode ?? result.placeName}-${result.latitude}-${result.longitude}`}

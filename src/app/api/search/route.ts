@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
         places: [],
         error: 'Query parameter "q" is required.',
       },
-      { status: 400 },
+      { status: 400 }
     )
   }
 
@@ -72,7 +72,7 @@ export async function GET(request: NextRequest) {
         places: [],
         error: message,
       },
-      { status: 500 },
+      { status: 500 }
     )
   }
 }

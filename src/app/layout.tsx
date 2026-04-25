@@ -6,12 +6,11 @@ import type React from 'react'
 import '../styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
+const siteName = 'Barikoi Location Finder'
+const siteDescription = 'Search places in Bangladesh and view them on a Barikoi-powered map.'
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
@@ -30,29 +29,28 @@ export default async function RootLayout({
   )
 }
 
-// Todo: Make sure to change according to your/project needs
 export const metadata: Metadata = {
+  ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
   title: {
-    default: 'Next.js Boilerplate',
-    template: '%s | Next.js Boilerplate',
+    default: siteName,
+    template: `%s | ${siteName}`,
   },
-  description: 'A comprehensive Next.js boilerplate with modern tooling',
-  keywords: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-  authors: [{ name: 'Your Name' }],
-  creator: 'Your Name',
+  description: siteDescription,
+  keywords: ['Barikoi', 'location finder', 'Bangladesh', 'map search', 'autocomplete'],
+  authors: [{ name: 'Yeasin' }],
+  creator: 'Yeasin',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://your-domain.com',
-    title: 'Next.js Boilerplate',
-    description: 'A comprehensive Next.js boilerplate with modern tooling',
-    siteName: 'Next.js Boilerplate',
+    title: siteName,
+    description: siteDescription,
+    siteName,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Next.js Boilerplate',
-    description: 'A comprehensive Next.js boilerplate with modern tooling',
-    creator: '@yourusername',
+    title: siteName,
+    description: siteDescription,
+    creator: '@yeasin2002',
   },
   robots: {
     index: true,

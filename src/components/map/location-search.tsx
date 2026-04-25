@@ -1,11 +1,9 @@
 'use client'
 
-import { LoaderCircle, Search, X } from 'lucide-react'
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import SuggestionList from '@/components/map/suggestion-list'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import SuggestionList from '@/components/map/suggestion-list'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import {
   resetLocationSearchState,
   setErrorMessage,
@@ -15,6 +13,8 @@ import {
   setStatus,
 } from '@/redux/features/location-search-slice'
 import type { LocationSuggestion } from '@/types/location'
+import { LoaderCircle, Search, X } from 'lucide-react'
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 
 type SearchResponse = {
   places: LocationSuggestion[]
@@ -67,7 +67,7 @@ export default function LocationSearch() {
         dispatch(setResults([]))
         dispatch(setStatus('error'))
         dispatch(
-          setErrorMessage(error instanceof Error ? error.message : 'Failed to search locations.'),
+          setErrorMessage(error instanceof Error ? error.message : 'Failed to search locations.')
         )
         setActiveIndex(-1)
       }
@@ -130,13 +130,17 @@ export default function LocationSearch() {
   }
 
   return (
-    <div className="pointer-events-auto absolute left-4 top-4 z-10 w-[calc(100%-2rem)] max-w-md space-y-2 sm:left-6 sm:top-6">
+    <div className="pointer-events-auto absolute top-4 left-4 z-10 w-[calc(100%-2rem)] max-w-md space-y-2 sm:top-6 sm:left-6">
       <label className="sr-only" htmlFor="location-search">
         Search for a location
       </label>
       <div className="flex items-center gap-2 rounded-2xl border border-white/15 bg-slate-950/92 p-2 shadow-2xl backdrop-blur-md">
         <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/8 text-slate-300">
-          {status === 'loading' ? <LoaderCircle className="size-4 animate-spin" /> : <Search className="size-4" />}
+          {status === 'loading' ? (
+            <LoaderCircle className="size-4 animate-spin" />
+          ) : (
+            <Search className="size-4" />
+          )}
         </div>
         <Input
           autoComplete="off"
@@ -144,7 +148,7 @@ export default function LocationSearch() {
           id="location-search"
           onChange={(event) => dispatch(setQuery(event.target.value))}
           onKeyDown={handleKeyDown}
-          placeholder="Search places in Bangladesh"
+          placeholder="Search places..."
           value={query}
         />
         {query ? (

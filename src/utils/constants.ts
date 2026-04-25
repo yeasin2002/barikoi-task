@@ -9,7 +9,6 @@ export const APP_CONFIG = {
   email: 'hello@example.com',
 } as const
 
-
 export const API_ROUTES = {
   AUTH: {
     SIGN_IN: '/api/auth/sign-in',
@@ -38,10 +37,7 @@ export const PAGINATION = {
   MAX_LIMIT: 100,
 } as const
 
-
 export const SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'] as const
-
-
 
 export const SOCIAL_LINKS = {
   TWITTER: 'https://twitter.com/yourusername',
@@ -70,7 +66,6 @@ export const COOKIE_NAMES = {
   LOCALE: 'locale',
   CONSENT: 'cookie-consent',
 } as const
-
 
 export const ERROR_MESSAGES = {
   GENERIC: 'Something went wrong. Please try again.',

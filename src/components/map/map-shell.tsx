@@ -45,7 +45,7 @@ export default function MapShell({ mapKey }: MapShellProps) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-center text-slate-50">
         <div className="max-w-md space-y-3">
-          <p className="text-sm font-medium uppercase tracking-[0.24em] text-slate-400">
+          <p className="text-sm font-medium tracking-[0.24em] text-slate-400 uppercase">
             Barikoi Location Finder
           </p>
           <h1 className="text-2xl font-semibold">Missing map key</h1>
@@ -89,7 +89,9 @@ export default function MapShell({ mapKey }: MapShellProps) {
                 onClose={() => dispatch(setIsPopupOpen(false))}
               >
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold text-slate-900">{selectedLocation.placeName}</p>
+                  <p className="text-sm font-semibold text-slate-900">
+                    {selectedLocation.placeName}
+                  </p>
                   <p className="text-xs leading-5 text-slate-600">{selectedLocation.address}</p>
                 </div>
               </Popup>
