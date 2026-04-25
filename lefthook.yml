@@ -1,0 +1,12 @@
+# lefthook.yml
+
+pre-commit:
+  parallel: true
+  jobs:
+    - run: npm run lint:fix "{staged_files}"
+      glob:
+        - '*.ts'
+        - '*.js'
+        - '*.tsx'
+        - '*.jsx'
+      stage_fixed: true
