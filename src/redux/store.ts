@@ -1,5 +1,5 @@
+import locationSearchReducer from '@/redux/features/location-search-slice'
 import { configureStore } from '@reduxjs/toolkit'
-import locationSearchReducer from '@/lib/features/location-search-slice'
 
 export const makeStore = () =>
   configureStore({

@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@/components/shared/theme-provider'
-import StoreProvider from '@/lib/store-provider'
+import StoreProvider from '@/redux/store-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import type React from 'react'
