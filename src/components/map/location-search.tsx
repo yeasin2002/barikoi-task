@@ -1,5 +1,6 @@
 'use client'
 
+import { searchLocations } from '@/actions/search-location'
 import SuggestionList from '@/components/map/suggestion-list'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -16,71 +17,67 @@ import type { LocationSuggestion } from '@/types/location'
 import { LoaderCircle, Search, X } from 'lucide-react'
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 
-type SearchResponse = {
-  places: LocationSuggestion[]
-  error?: string
-}
-
 export default function LocationSearch() {
   const dispatch = useAppDispatch()
   const { errorMessage, query, results, status } = useAppSelector((state) => state.locationSearch)
   const [activeIndex, setActiveIndex] = useState(-1)
-  const abortRef = useRef<AbortController | null>(null)
+  const requestIdRef = useRef(0)
 
   useEffect(() => {
     const trimmedQuery = query.trim()
 
     if (trimmedQuery.length < 1) {
-      abortRef.current?.abort()
+      requestIdRef.current += 1
       dispatch(setResults([]))
       dispatch(setStatus('idle'))
       dispatch(setErrorMessage(null))
       return
     }
 
-    const timeoutId = window.setTimeout(async () => {
-      abortRef.current?.abort()
-      const controller = new AbortController()
-      abortRef.current = controller
-
+    const timeoutId = window.setTimeout(() => {
+      const requestId = ++requestIdRef.current
       dispatch(setStatus('loading'))
       dispatch(setErrorMessage(null))
 
-      try {
-        const response = await fetch(`/api/search?q=${encodeURIComponent(trimmedQuery)}`, {
-          signal: controller.signal,
+      void searchLocations(trimmedQuery)
+        .then((data) => {
+          if (requestId !== requestIdRef.current) {
+            return
+          }
+
+          if (data.error) {
+            throw new Error(data.error)
+          }
+
+          dispatch(setResults(data.places))
+          dispatch(setStatus('success'))
+          setActiveIndex(data.places.length > 0 ? 0 : -1)
         })
-        const data = (await response.json()) as SearchResponse
+        .catch((error) => {
+          if (requestId !== requestIdRef.current) {
+            return
+          }
 
-        if (!response.ok) {
-          throw new Error(data.error ?? 'Failed to search locations.')
-        }
+          if (error instanceof Error && error.message === 'Query parameter "q" is required.') {
+            return
+          }
 
-        dispatch(setResults(data.places))
-        dispatch(setStatus('success'))
-        setActiveIndex(data.places.length > 0 ? 0 : -1)
-      } catch (error) {
-        if (error instanceof DOMException && error.name === 'AbortError') {
-          return
-        }
-
-        dispatch(setResults([]))
-        dispatch(setStatus('error'))
-        dispatch(
-          setErrorMessage(error instanceof Error ? error.message : 'Failed to search locations.')
-        )
-        setActiveIndex(-1)
-      }
+          dispatch(setResults([]))
+          dispatch(setStatus('error'))
+          dispatch(
+            setErrorMessage(error instanceof Error ? error.message : 'Failed to search locations.')
+          )
+          setActiveIndex(-1)
+        })
     }, 300)
 
     return () => {
       window.clearTimeout(timeoutId)
-      abortRef.current?.abort()
     }
   }, [dispatch, query])
 
   const handleClear = () => {
-    abortRef.current?.abort()
+    requestIdRef.current += 1
     dispatch(resetLocationSearchState())
     setActiveIndex(-1)
   }

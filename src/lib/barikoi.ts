@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { createBarikoiClient } from 'barikoiapis'
 
 export const barikoi = createBarikoiClient({
