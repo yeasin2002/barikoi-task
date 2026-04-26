@@ -1,4 +1,4 @@
-# Location Finder
+# Barikoi Task - Map App
 
 Barikoi-powered location search app built with Next.js, TypeScript, Redux, and Tailwind CSS.
 

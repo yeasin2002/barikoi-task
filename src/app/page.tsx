@@ -2,11 +2,13 @@
 
 import LocationSearch from '@/components/map/location-search'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { geolocationOptions, isGeolocationSupported, mapKey, parseGeolocationError } from '@/lib'
 import { setIsPopupOpen } from '@/redux/features/location-search-slice'
 import { LoaderCircle, LocateFixed } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Map, Marker, NavigationControl, Popup, type MapRef } from 'react-bkoi-gl'
 import 'react-bkoi-gl/styles'
+import { MissingEnvWarning } from '../components/missing-env-warning'
 
 type UserLocation = {
   longitude: number
@@ -19,28 +21,7 @@ const dhakaViewState = {
   zoom: 12,
 }
 
-const geolocationOptions: PositionOptions = {
-  enableHighAccuracy: true,
-  maximumAge: 0,
-  timeout: 10000,
-}
-
-const parseGeolocationError = (error: GeolocationPositionError) => {
-  switch (error.code) {
-    case error.PERMISSION_DENIED:
-      return 'Permission denied.'
-    case error.POSITION_UNAVAILABLE:
-      return 'Location unavailable.'
-    case error.TIMEOUT:
-      return 'Location request timed out.'
-    default:
-      return 'Failed to determine your location.'
-  }
-}
-
 export default function RootPage() {
-  const mapKey = process.env.NEXT_PUBLIC_BARIKOI_MAP_KEY ?? ''
-
   const dispatch = useAppDispatch()
   const mapRef = useRef<MapRef | null>(null)
   const hasRequestedLocationRef = useRef(false)
@@ -48,7 +29,6 @@ export default function RootPage() {
   const isPopupOpen = useAppSelector((state) => state.locationSearch.isPopupOpen)
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null)
   const [isLocating, setIsLocating] = useState(false)
-  const isGeolocationSupported = typeof navigator !== 'undefined' && 'geolocation' in navigator
 
   const locateUser = useCallback((shouldFocusMap: boolean) => {
     if (typeof navigator === 'undefined' || !('geolocation' in navigator)) {
@@ -115,21 +95,7 @@ export default function RootPage() {
     })
   }, [selectedLocation])
 
-  if (!mapKey) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-center text-slate-50">
-        <div className="max-w-md space-y-3">
-          <p className="text-sm font-medium tracking-[0.24em] text-slate-400 uppercase">
-            Barikoi Location Finder
-          </p>
-          <h1 className="text-2xl font-semibold">Missing map key</h1>
-          <p className="text-sm leading-6 text-slate-300">
-            Set `NEXT_PUBLIC_BARIKOI_MAP_KEY` in `.env.local` to load the Barikoi map tiles.
-          </p>
-        </div>
-      </main>
-    )
-  }
+  if (!mapKey) return <MissingEnvWarning />
 
   return (
     <main className="relative h-dvh w-full overflow-hidden bg-slate-950">

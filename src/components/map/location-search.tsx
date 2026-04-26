@@ -102,10 +102,7 @@ export default function LocationSearch() {
     if (event.key === 'ArrowDown') {
       event.preventDefault()
       setActiveIndex((currentIndex) => {
-        if (currentIndex >= results.length - 1) {
-          return 0
-        }
-
+        if (currentIndex >= results.length - 1) return 0
         return currentIndex + 1
       })
       return
