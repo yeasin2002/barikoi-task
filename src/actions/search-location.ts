@@ -75,10 +75,11 @@ export async function searchLocations(query: string): Promise<SearchLocationsRes
     })
 
     return {
-      places: result.data?.places?.flatMap((place) => {
-        const normalizedPlace = normalizePlace(place)
-        return normalizedPlace ? [normalizedPlace] : []
-      }) ?? [],
+      places:
+        result.data?.places?.flatMap((place) => {
+          const normalizedPlace = normalizePlace(place)
+          return normalizedPlace ? [normalizedPlace] : []
+        }) ?? [],
     }
   } catch (error) {
     return {
