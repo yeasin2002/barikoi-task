@@ -41,8 +41,9 @@
     "react-bkoi-gl": "^2.1.0",
     "react-dom": "^19.2.5",
     "react-redux": "^9.2.0",
-    "tailwind-merge": "^3.5.0",
     "server-only": "latest",
+    "shadcn": "^4.5.0",
+    "tailwind-merge": "^3.5.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
