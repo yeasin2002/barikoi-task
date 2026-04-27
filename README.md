@@ -40,23 +40,21 @@ src/
 ##  Follow-up questions. 
 ### What trade-offs did you consciously make due to time constraints?
 
-**Answer:** Due to time constraints, I made a few deliberate decisions. Firstly, I initialized this project using my own [bulletproof Next.js starter](https://github.com/yeasin2002/bulletproof-nextjs-starter) template so I could start quickly. It already includes most of the setup I usually need to kick off a project.
+**Answer:** Due to time constraints, I made a few deliberate trade-offs. First, I initialized the project using my own [bulletproof Next.js starter](https://github.com/yeasin2002/bulletproof-nextjs-starter) template so I could move quickly. It already includes most of the setup I usually need to kick off a project.
 
-Secondly, I avoided adding extra features and focused only on the core part: allowing users to search locations and view them on a map. Since the Barikoi website supports AI agents to better understand their API, I used Claude to generate my `AGENTS.md` file. It includes details about my project and ideas, which helped with better auto-selection and gave me a rough direction.
+Second, I avoided adding extra features and focused only on the core part: letting users search for locations and view them on a map. Since the Barikoi website supports AI agents to better understand their API, I used Claude to generate my `AGENTS.md` file. It includes details about my project and ideas, which helped with better auto-selection and gave me a rough direction.
 
-Along with that, using AI and my own research, I focused only on the essential APIs from their NPM package that were required for this use case. I built the core functionality first and then did some minor refactoring afterward.
+Along with that, using AI and my own research, I focused only on the essential APIs from their NPM package that were needed for this use case. I built the core functionality first and then did some minor refactoring afterward.
 
 <br/>
 
 ### If this app needed to scale (more data, more features), what would you refactor first?
 
-**Answer:** I would start by refactoring the code to separate Barikoi access and map state into dedicated layers. This would make the system easier to scale and maintain.
+**Answer:** I would start by refactoring the code to separate Barikoi access and map state into dedicated layers. That would make the system easier to maintain and scale.
 
-Right now, this is a very minimal version of the application. If we want to support more data and features, the structure needs to evolve accordingly. Scaling itself is a broad topic, and it’s not something we can fully define upfront. But we can ensure that we follow solid best practices, design patterns, and principles so the system stays maintainable.
+Right now, this is a very minimal version of the application. If we want to support more data and features, the structure needs to evolve accordingly. Scaling is a broad topic, and it is not something we can define fully upfront. But we can make sure we follow solid best practices, design patterns, and principles so the system stays maintainable.
 
-Depending on future needs, we might introduce code splitting, lazy loading, caching strategies, debouncing, throttling, or other optimizations where necessary.
-Vercel provide [best practice guideline ](https://vercel.com/guides/building-an-optimized-nextjs-app) that we can use, and if we are using any engine, they can use it. Besides, we have to follow [bulletproof react](https://github.com/alan2207/bulletproof-react) Guideline to create new modules or folder structure: we can define just like this so that we can refactor and scale if needed.  
-
+Depending on future needs, we might introduce code splitting, lazy loading, caching strategies, debouncing, throttling, or other optimizations where necessary. Vercel provides [best practice guidelines](https://vercel.com/guides/building-an-optimized-nextjs-app) that we can follow, and if we are using any engine, we can adapt it there as well. Besides that, we should follow the [Bulletproof React](https://github.com/alan2207/bulletproof-react) guideline when creating new modules or structuring folders, so the app remains easy to refactor and scale later.
 
 ## Setup
 
