@@ -44,7 +44,7 @@
     "server-only": "latest",
     "shadcn": "^4.5.0",
     "tailwind-merge": "^3.5.0",
-    "zod": "^3.25.76"
+    "zod": "^4.4.2"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "latest",
